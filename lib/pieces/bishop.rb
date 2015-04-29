@@ -11,6 +11,11 @@ class Bishop < Piece
   #   super
   # end
 
+  def symbol(color)
+    hash = { white: 'B', black: 'b' }
+    hash[color]
+  end
+
   def directions
     diag_deltas
   end
