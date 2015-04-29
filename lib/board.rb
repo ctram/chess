@@ -23,12 +23,11 @@ class Board
   def checkmate?(color)
     what color?
     king.possible_moves
-
   end
 
-  def dup
-
-  end
+  # def dup
+  #
+  # end
 
 # original code
   # def deep_dup
@@ -52,12 +51,40 @@ class Board
   #   end
   # end
 
+  def fill_back_rows(color)
+    back_pieces = [Rook, Bishop, Knight, King, Queen, Knight, Bishop, Rook]
+    back_pieces.each_with_index do |piece, col|
+      row = color == :black ? 0 : 7
+      @grid[row][col] = piece.new([row, col], self, color)
+    end
+  end
+
+  def fill_pawn_rows(color)
+    row = color == :black ? 1 : 6
+    8.times do |col|
+      @grid[row][col] = Pawn.new([row, col], self, color)
+    end
+  end
+
+  def render
+    @grid.each do |row|   # right now grid is an array of pieces,
+       row.each do |piece|
+        print "#{piece.symbol(piece.color)}  " if piece != nil
+        print " . " if piece == nil
+      end
+      print "\n"
+    end
+  end
+
   def in_check?(color)
   end
 
   def make_starting_grid(fill_board)
-    if fill_board
-      @grid = Array.new(8) {Array.new(8)}
+    @grid = Array.new(8) { Array.new(8) }
+    return unless fill_board
+    [:black, :white].each do |color|
+      fill_back_rows(color)
+      fill_pawn_rows(color)
     end
   end
 
@@ -73,5 +100,8 @@ class Board
     x, y = pos
     (x < @grid.size and x > 0) and (y < @grid.size and y > 0)
   end
+
+
+
 
 end

@@ -14,6 +14,12 @@ class Knight < Piece
     [-2, -1]
   ]
 
+
+  def symbol(color)
+    hash = { white: 'H', black: 'h' }
+    hash[color]
+  end
+
   def directions
     KNIGHT_DELTAS
   end
