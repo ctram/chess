@@ -55,7 +55,7 @@ class Board
 
   def on_board?(pos)
     x, y = pos
-    (x < @grid.size-1 || x > 0) and (y < @grid.size-1 and y > 0)
+    (x < @grid.size-1 and x > 0) and (y < @grid.size-1 and y > 0)
   end
 
 end
