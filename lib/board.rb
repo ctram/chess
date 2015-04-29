@@ -67,6 +67,8 @@ class Board
   end
 
   def render
+    system 'clear'
+    puts "______________________________"
     @grid.each do |row|   # right now grid is an array of pieces,
        row.each do |piece|
         print "#{piece.symbol(piece.color)}  " if piece != nil
