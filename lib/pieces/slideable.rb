@@ -30,8 +30,6 @@ module Slideable
         new_y = @pos[1] + dir[1] * i
         new_pos = [new_x, new_y]
         if !@board.on_board?(new_pos)
-          p  positions
-
           i = 1
           break
         end
@@ -54,7 +52,7 @@ module Slideable
       end
     end
 
-
+    positions
   end
 
 

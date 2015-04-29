@@ -26,15 +26,31 @@ class Board
 
   end
 
-  def deep_dup
-    @grid.map do |e|
-      if e.is_a? Array
-        e.deep_dup
-      else
-        e
-      end
-    end
+  def dup
+
   end
+
+# original code
+  # def deep_dup
+  #   @grid.map do |e|
+  #     if e.is_a? Array
+  #       e.deep_dup
+  #     else
+  #       e
+  #     end
+  #   end
+  # end
+
+  # brainstorm
+  # def deep_dup
+  #   @grid.map do |e|
+  #     if e.is_a? Array
+  #       e.deep_dup
+  #     else
+  #       e.deep_dup <- this is a Piece object - you need to deep_dup it(?) because the piece will have references to the original board but you want a new board(?)
+  #     end
+  #   end
+  # end
 
   def in_check?(color)
   end
@@ -55,7 +71,7 @@ class Board
 
   def on_board?(pos)
     x, y = pos
-    (x < @grid.size-1 and x > 0) and (y < @grid.size-1 and y > 0)
+    (x < @grid.size and x > 0) and (y < @grid.size and y > 0)
   end
 
 end
