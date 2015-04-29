@@ -15,8 +15,8 @@ end
 
 b = Board.new(true)
 
-b.render
-
+king = b.grid[0][3]
 rook = b.grid[1][0]
-rook.move([5,5])
+king.move([5,3])
 b.render
+p b.in_check?(king.color)

@@ -17,7 +17,18 @@ class Board
     @grid[x][y]= piece
   end
 
-  def check?
+  def in_check?(color)
+    king_pos = find_king(color)
+    color = (color == :black ? :white : :black)
+    enemy_pieces = find_pieces_of_color(color)
+    byebug
+    enemy_possible_moves = []
+    enemy_pieces.each do |piece|
+      enemy_possible_moves += piece.possible_moves
+    end
+    byebug
+
+    enemy_possible_moves.include?(king_pos) ? true : false
   end
 
   def checkmate?(color)
@@ -29,6 +40,9 @@ class Board
   #
   # end
 
+  def dup
+
+  end
 # original code
   # def deep_dup
   #   @grid.map do |e|
@@ -78,7 +92,20 @@ class Board
     end
   end
 
-  def in_check?(color)
+
+  def find_pieces_of_color(color)
+    enemy_pieces = @grid.flatten.compact.select{|piece| piece.color == color}
+  end
+
+  def find_king(color)
+    king = @grid.flatten.compact.find do |piece|
+      piece.is_a?(King) && piece.color == color
+    end
+    king.pos
+  end
+
+  def inspect
+
   end
 
   def make_starting_grid(fill_board)
