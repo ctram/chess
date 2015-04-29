@@ -37,7 +37,7 @@ module Slideable
         #
 
         if @board.occupied?(new_pos)
-          if @board.piece_at?(new_pos).color == @color
+          if @board.piece_at(new_pos).color == @color
             i = 1
             break
           else
@@ -54,7 +54,5 @@ module Slideable
 
     positions
   end
-
-
 
 end

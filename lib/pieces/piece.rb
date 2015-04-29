@@ -20,8 +20,15 @@ class Piece
   end
 
 
-  def valid_moves
+  # def valid_moves(positions)
+  #   positions.reject do |pos|
+  #     # in_check?(color)
+  #
+  # end
+  # #
+  # def player_turn (
+  #   vali
+  #   )
 
-  end
 
 end

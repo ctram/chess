@@ -3,6 +3,7 @@ require_relative 'piece'
 require_relative 'stepable'
 
 class Knight < Piece
+  include Stepable
   KNIGHT_DELTAS = [
     [ 1,  2],
     [ -1, 2],
