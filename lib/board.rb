@@ -36,34 +36,18 @@ class Board
     king.possible_moves
   end
 
-  # def dup
-  #
-  # end
-
-  def dup
-
+  def dup_board
+    new_board = Board.new(false)
+    pieces = get_pieces
+    pieces.each do |piece|
+      piece.dup(new_board)
+    end
+    new_board
   end
-# original code
-  # def deep_dup
-  #   @grid.map do |e|
-  #     if e.is_a? Array
-  #       e.deep_dup
-  #     else
-  #       e
-  #     end
-  #   end
-  # end
 
-  # brainstorm
-  # def deep_dup
-  #   @grid.map do |e|
-  #     if e.is_a? Array
-  #       e.deep_dup
-  #     else
-  #       e.deep_dup <- this is a Piece object - you need to deep_dup it(?) because the piece will have references to the original board but you want a new board(?)
-  #     end
-  #   end
-  # end
+  def get_pieces
+    @grid.flatten.compact
+  end
 
   def fill_back_rows(color)
     back_pieces = [Rook, Bishop, Knight, King, Queen, Knight, Bishop, Rook]
@@ -104,9 +88,6 @@ class Board
     king.pos
   end
 
-  def inspect
-
-  end
 
   def make_starting_grid(fill_board)
     @grid = Array.new(8) { Array.new(8) }
