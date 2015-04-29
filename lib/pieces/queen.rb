@@ -5,14 +5,8 @@ require_relative 'slideable'
 class Queen < Piece
   include Slideable
 
-  DIRECTIONS = [[1, 0], [0, 1], [-1, 0], [0, -1], [1, 1], [-1, -1], [1, -1], [-1, 1]]
-
-  def initialize(start_position, board, color)
-    super
-  end
-
   def directions
-    DIRECTIONS
+    diag_deltas + straight_deltas
   end
-  
+
 end

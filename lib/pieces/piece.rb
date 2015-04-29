@@ -1,9 +1,6 @@
 class Piece
   attr_accessor :pos
 
-  # DIRECTIONS = [[1, 1], [-1, -1], [1, -1], [-1, 1]]
-
-
   def initialize(starting_pos, board, color)
     @pos = starting_pos
     @board = board
