@@ -30,18 +30,22 @@ module Slideable
         new_y = @pos[1] + dir[1] * i
         new_pos = [new_x, new_y]
         if !@board.on_board?(new_pos)
+          p  positions
+
           i = 1
-          next
+          break
         end
+        # if !board.on_board?(new_pos) and i == @board.grid.size
+        #
 
         if @board.occupied?(new_pos)
           if @board.piece_at?(new_pos).color == @color
             i = 1
-            next
+            break
           else
             i = 1
             positions << new_pos
-            next
+            break
           end
         else
           i +=1
@@ -50,7 +54,7 @@ module Slideable
       end
     end
 
-    positions
+
   end
 
 
