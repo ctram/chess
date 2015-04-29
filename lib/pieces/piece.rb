@@ -5,6 +5,14 @@ class Piece
     @pos = starting_pos
     @board = board
     @color = color
+
+  end
+
+  def dup(new_board)
+    new_piece = self.class.new(@pos, new_board, @color)
+    x, y = @pos
+    new_board.grid[x][y] = new_piece
+    new_piece
   end
 
   def move(new_pos)
