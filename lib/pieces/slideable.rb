@@ -1,6 +1,27 @@
 module Slideable
+  DIAG_DELTAS = [
+    [ 1 ,  1],
+    [-1,  -1],
+    [ 1,  -1],
+    [-1,   1]
+  ]
+
+  STRAIGHT_DELTAS = [
+    [ 0,  1],
+    [ 0, -1],
+    [-1,  0],
+    [ 1,  0]
+  ]
+
+  def diag_deltas
+    DIAG_DELTAS
+  end
+
+  def straight_deltas
+    STRAIGHT_DELTAS
+  end
+
   def possible_moves
-    # byebug
     positions = []
     i = 1
     directions.each do |dir|
@@ -28,7 +49,10 @@ module Slideable
         end
       end
     end
+
     positions
   end
+
+
 
 end

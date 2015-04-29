@@ -7,13 +7,11 @@ class Bishop < Piece
 
   attr_accessor :board
 
-  DIRECTIONS = [[1, 1], [-1, -1], [1, -1], [-1, 1]]
-
-  def initialize(start_position, board, color)
-    super
-  end
+  # def initialize(start_position, board, color)
+  #   super
+  # end
 
   def directions
-    DIRECTIONS
+    diag_deltas
   end
 end
