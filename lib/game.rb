@@ -5,26 +5,44 @@ class Game
 
   def initialize(player1, player2)
     @board = Board.new(true)
-    player1.color = :white
-    player2.color = :black
+    player1 = HumanPlayer.new(:white)
+    player2 = HumanPlayer.new(:black)
 
     @current_player = player1
 
   end
 
+
+  def accidental_checking?(player_choices)
+    s_pos, e_pos = player_choices
+    new_board = board.dup
+    board.piece_at(s_pos).move(e_pos)
+    if board.in_check?
+      puts "You can not put yourself into check."
+      true
+    end
+    false
+  end
+
+  def commit_move(player_choices)
+    s_pos, e_pos = player_choices
+    board.piece_at(s_pos).move(e_pos)
+  end
+
   def play
-
-
+    puts 'Game begins. Player1 goes first.'
     until over?
       @board.render
-      start_pos, end_pos = @current_player.get_move
-      @board[start_pos].move(end_pos)
-
+      player_choices = @current_player.take_turn
+      next if self.accidental_checking?(player_choices)
+      commit_move(player_choices)
+      switch_current_player
     end
   end
 
-  def switch_player
+  def switch_current_player
     @current_player = @current_player == player1 ? player2 : player1
+    puts "#{@current_player} is no"
   end
 
   def over?
@@ -35,25 +53,56 @@ class Game
 end
 
 class HumanPlayer
+  attr_reader :color
 
-  def initialize
+  def initialize(color)
+    @color = color
+
   end
 
-  def get_move
-    prints "specify starting coordinates ( x,y ) :"
-    start_pos = gets.chomp.split(",").map! { |str| str.to_i }
-      # unless board.piece_at(start_pos).color == @current_player.color
-    prints "specify ending coordinates ( x,y ) :"
-    end_pos = gets.chomp.split(", ").map! { |str| str.to_i }
-    [start_pos, end_pos]
+  # return position, an array.
+  def get_move(pos_type)
+    if pos_type == :pick_piece
+      prints "Specify starting coordinates ( x,y ) :"
+      s_pos = gets.chomp.split(",").map! { |str| str.to_i }
+    else
+      puts 'Pick destination for your piece.'
+      start_pos = gets.chomp.split(",").map! { |str| str.to_i }
+    end
   end
 
+  def take_turn
+    s_pos = nil
+    until valid_start_position?(pos)
+      s_pos = get_move(:pick_piece)
+    end
+    e_pos = nil
+    until valid_end_position?(pos)
+      e_pos = get_move(:place_piece)
+    end
+    [s_pos, e_pos]
+  end
+
+  def valid_end_position?(pos)
+    unless board.on_board?(pos) and board.piece_at(pos).color != color
+      puts 'You must place your piece onto valid board coordinates and it must not be placed onto your own pieces.'
+    end
+  end
+
+  def valid_start_position?(pos)
+    unless board.on_board?(pos) and board.piece_at(pos).color == color
+      puts 'You must pick a position on the board and your own piece.'
+      false
+    end
+    true
+  end
 
 
 end
 
 #
-# c = Board.new(true)
+board = Board.new(true)
+p board.empty?([1,1])
 #
 # # king = b.grid[0][3]
 # # rook = b.grid[1][0]

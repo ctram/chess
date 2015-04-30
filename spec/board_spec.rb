@@ -1,6 +1,6 @@
-require 'spec_helper'
-require 'board'
-require 'pieces'
+require_relative 'spec_helper'
+require_relative '../lib/board'
+require_relative '../lib/pieces'
 
 describe Board do
   subject(:b) { Board.new }

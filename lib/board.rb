@@ -9,11 +9,17 @@ class Board
 
   def [](pos)
     x, y = pos
+    unless on_board?(pos)
+      raise "invalid position"
+    end
     @grid[x][y]
   end
 
   def []=(pos, piece)
     x, y = pos
+    unless on_board?(pos)
+      raise "invalid position"
+    end
     @grid[x][y] = piece
   end
 
@@ -31,6 +37,10 @@ class Board
         !new_board.in_check?(color)
       end
     end
+  end
+
+  def empty?(position)
+    self[position] == nil
   end
 
   def in_check?(color)
@@ -133,6 +143,9 @@ class Board
   end
 
   def on_board?(pos)
+    unless pos.is_a? Array
+      raise "invalid position"
+    end
     x, y = pos
     (x < @grid.size and x > 0) and (y < @grid.size and y > 0)
   end
