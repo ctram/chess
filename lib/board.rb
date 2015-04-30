@@ -136,8 +136,4 @@ class Board
     x, y = pos
     (x < @grid.size and x > 0) and (y < @grid.size and y > 0)
   end
-
-
-
-
 end
