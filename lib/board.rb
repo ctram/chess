@@ -17,6 +17,7 @@ class Board
 
   def []=(pos, piece)
     x, y = pos
+
     unless on_board?(pos)
       raise "invalid position"
     end
@@ -31,10 +32,9 @@ class Board
     friendly_pieces.any? do |piece|
       piece.possible_moves.any? do |pos|
         new_board = self.dup_board
-        x = piece.pos[0] # piece's current position
-        y = piece.pos[1]
+        x, y = piece.pos
         new_board.grid[x][y].move(pos)
-        !new_board.in_check?(color)
+        new_board.in_check?(color)
       end
     end
   end
@@ -51,7 +51,7 @@ class Board
     enemy_pieces.each do |piece|
       enemy_possible_moves += piece.possible_moves
     end
-    # byebug
+    #
 
     enemy_possible_moves.include?(king_pos) ? true : false
   end
@@ -143,10 +143,10 @@ class Board
   end
 
   def on_board?(pos)
-    unless pos.is_a? Array
-      raise "invalid position"
+    if pos == nil
+      return false
     end
     x, y = pos
-    (x < @grid.size and x > 0) and (y < @grid.size and y > 0)
+    (x < @grid.size and x >= 0) and (y < @grid.size and y >= 0)
   end
 end
