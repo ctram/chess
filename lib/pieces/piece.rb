@@ -17,9 +17,10 @@ class Piece
 
   def move(new_pos)
     @moved = true if !@moved
-    @board[@pos] = nil
-    @board[new_pos] = self
+    @board[@pos]= nil
+    # byebug
     @pos = new_pos
+    @board[@pos]= self
   end
 
 
