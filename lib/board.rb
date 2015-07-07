@@ -39,33 +39,6 @@ class Board
     end
   end
 
-  def empty?(position)
-    self[position] == nil
-  end
-
-  def in_check?(color)
-    king_pos = find_king(color).pos
-    color = (color == :black ? :white : :black)
-    enemy_pieces = find_pieces_of_color(color)
-    enemy_possible_moves = []
-    enemy_pieces.each do |piece|
-      enemy_possible_moves += piece.possible_moves
-    end
-    #
-
-    enemy_possible_moves.include?(king_pos) ? true : false
-  end
-
-  # def checkmate?(color)
-  #
-  #   king = find_king(color)
-  #   king.possible_moves.none? do |pos|
-  #     new_board = self.dup
-  #     new_board.find_king(color).move(pos)
-  #     new_board.in_check?(color)
-  #   end
-  # end
-
   def dup_board
     new_board = Board.new(false)
     pieces = get_pieces
@@ -75,8 +48,8 @@ class Board
     new_board
   end
 
-  def get_pieces
-    @grid.flatten.compact
+  def empty?(position)
+    self[position] == nil
   end
 
   def fill_back_rows(color)
@@ -94,22 +67,6 @@ class Board
     end
   end
 
-  def render
-    system 'clear'
-    puts "______________________________"
-    @grid.each do |row|   # right now grid is an array of pieces,
-       row.each do |piece|
-        print "#{piece.symbol(piece.color)}  " if piece != nil
-        print " . " if piece == nil
-      end
-      print "\n"
-    end
-  end
-
-
-  def find_pieces_of_color(color)
-    pieces = @grid.flatten.compact.select{|piece| piece.color == color}
-  end
 
   def find_king(color)
     # begin
@@ -124,6 +81,26 @@ class Board
     end
   end
 
+  def find_pieces_of_color(color)
+    pieces = @grid.flatten.compact.select{|piece| piece.color == color}
+  end
+
+  def get_pieces
+    @grid.flatten.compact
+  end
+
+  def in_check?(color)
+    king_pos = find_king(color).pos
+    color = (color == :black ? :white : :black)
+    enemy_pieces = find_pieces_of_color(color)
+    enemy_possible_moves = []
+    enemy_pieces.each do |piece|
+      enemy_possible_moves += piece.possible_moves
+    end
+    #
+
+    enemy_possible_moves.include?(king_pos) ? true : false
+  end
 
   def make_starting_grid(fill_board)
     @grid = Array.new(8) { Array.new(8) }
@@ -132,10 +109,6 @@ class Board
       fill_back_rows(color)
       fill_pawn_rows(color)
     end
-  end
-
-  def piece_at(pos)
-    self[pos]
   end
 
   def occupied?(pos)
@@ -148,5 +121,21 @@ class Board
     end
     x, y = pos
     (x < @grid.size and x >= 0) and (y < @grid.size and y >= 0)
+  end
+
+  def piece_at(pos)
+    self[pos]
+  end
+
+  def render
+    system 'clear'
+    puts "______________________________"
+    @grid.each do |row|   # right now grid is an array of pieces,
+       row.each do |piece|
+        print "#{piece.symbol(piece.color)}  " if piece != nil
+        print " . " if piece == nil
+      end
+      print "\n"
+    end
   end
 end
