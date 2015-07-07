@@ -4,7 +4,6 @@ require_relative 'board'
 class Game
   attr_accessor :current_player
 
-
   def initialize(player1, player2)
     @board = Board.new(true)
     player1.color = :white
@@ -17,7 +16,6 @@ class Game
     player2.name = 'Player 2'
 
     @current_player = player1
-
   end
 
   def accidental_checking?(player_choices)
@@ -56,19 +54,19 @@ class Game
     puts "#{@current_player} is no"
   end
 
-
   def take_turn
     begin
       puts "#{@current_player.name}'s turn to move:"
-      s_pos = get_move(:pick_piece)
-    end until valid_start_position?(s_pos)
+      s_pos = @current_player.get_move(:pick_piece)
+      puts
+    end until @current_player.valid_start_position?(s_pos)
     begin
       puts "Choose a destination:"
-      e_pos = get_move(:place_piece)
-    end until valid_end_position?(e_pos)
+      e_pos = @current_player.get_move(:place_piece)
+      puts
+    end until @current_player.valid_end_position?(e_pos)
     [s_pos, e_pos]
   end
-
 end
 
 class HumanPlayer
@@ -77,22 +75,22 @@ class HumanPlayer
   def initialize(name)
     @color = nil
     @name = name
-
   end
 
   # return position, an array.
   def get_move(pos_type)
     if pos_type == :pick_piece
-      print "Specify starting coordinates ( x,y ) :"
+      print "Specify starting coordinates (row, col): "
       s_pos = gets.chomp.split(",").map! { |str| str.to_i }
     else
-      puts 'Pick destination for your piece.'
+      puts 'Pick destination for your piece (row, col): '
       start_pos = gets.chomp.split(",").map! { |str| str.to_i }
     end
   end
 
-
   def valid_end_position?(pos)
+    # TODO: a valid end position is one where there is an empty space?
+    debugger
     unless pos == nil or (board.on_board?(pos) and board.piece_at(pos).color != color)
       puts 'You must place your piece onto valid board coordinates and it must not be placed onto your own pieces.'
     end
@@ -105,7 +103,6 @@ class HumanPlayer
     end
     true
   end
-
 end
 player1 = HumanPlayer.new('Player 1')
 player2 = HumanPlayer.new('player 2')
