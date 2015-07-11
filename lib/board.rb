@@ -129,13 +129,17 @@ class Board
 
   def render
     system 'clear'
-    puts "______________________________"
-    @grid.each do |row|   # right now grid is an array of pieces,
+    puts '  0  1  2  3  4  5  6  7'
+    puts " ------------------------"
+    @grid.each_with_index do |row, i|   # right now grid is an array of pieces,
+       print i
+       print '|'
        row.each do |piece|
         print "#{piece.symbol(piece.color)}  " if piece != nil
         print " . " if piece == nil
       end
       print "\n"
     end
+    puts
   end
 end
