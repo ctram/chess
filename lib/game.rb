@@ -18,13 +18,15 @@ class Game
     @current_player = player1
   end
 
-  def accidental_checking?(player_choices)
+  def accidental_checking?(player_choices, player_color)
     s_pos, e_pos = player_choices
-    new_board = board.dup
-    board.piece_at(s_pos).move(e_pos)
-    if board.in_check?
+    # TODO: need to deep dup the board to avoid in_check? from moving the original board's pieces
+    new_board = @board.dup_board
+    new_board.piece_at(s_pos).move(e_pos)
+    debugger
+    if new_board.in_check? player_color
       puts "You cannot put yourself into check."
-      true
+      return true
     end
     false
   end
@@ -39,8 +41,9 @@ class Game
   end
 
   def play
-    puts 'Game begins. Player1 goes first.'
+    puts 'Game begins. Player 1 goes first.'
     until over?
+
       @board.render
       player_choices = self.take_turn
       next if self.accidental_checking?(player_choices)
@@ -90,16 +93,18 @@ class HumanPlayer
 
   def valid_end_position?(pos)
     # TODO: a valid end position is one where there is an empty space?
-    debugger
-    unless pos == nil or (board.on_board?(pos) and board.piece_at(pos).color != color)
+
+    unless (board.piece_at(pos) == nil) or (board.on_board?(pos) and board.piece_at(pos).color != color)
       puts 'You must place your piece onto valid board coordinates and it must not be placed onto your own pieces.'
+      return false
     end
+    true
   end
 
   def valid_start_position?(pos)
     unless board.on_board?(pos) and board.piece_at(pos).color == color
       puts 'You must pick a position on the board and your own piece.'
-      false
+      return false
     end
     true
   end
