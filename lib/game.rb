@@ -5,17 +5,23 @@ class Game
   attr_accessor :current_player
 
   def initialize(player1, player2)
+    @messages = []
+
     @board = Board.new(true)
-    player1.color = :white
-    player2.color = :black
 
-    player1.board = @board
-    player2.board = @board
+    @player1 = player1
+    @player2 = player2
 
-    player1.name = 'Player 1'
-    player2.name = 'Player 2'
+    @player1.color = :white
+    @player2.color = :black
 
-    @current_player = player1
+    @player1.board = @board
+    @player2.board = @board
+
+    @player1.name = 'Player 1'
+    @player2.name = 'Player 2'
+
+    @current_player = @player1
   end
 
   def accidental_checking?(player_choices, player_color)
@@ -23,7 +29,6 @@ class Game
     # TODO: need to deep dup the board to avoid in_check? from moving the original board's pieces
     new_board = @board.dup_board
     new_board.piece_at(s_pos).move(e_pos)
-    debugger
     if new_board.in_check? player_color
       puts "You cannot put yourself into check."
       return true
@@ -33,7 +38,7 @@ class Game
 
   def commit_move(player_choices)
     s_pos, e_pos = player_choices
-    board.piece_at(s_pos).move(e_pos)
+    @board.piece_at(s_pos).move(e_pos)
   end
 
   def over?
@@ -43,21 +48,33 @@ class Game
   def play
     puts 'Game begins. Player 1 goes first.'
     until over?
-
       @board.render
       player_choices = self.take_turn
-      next if self.accidental_checking?(player_choices)
+      piece = @board.piece_at player_choices.first
+      # until the move that the player picked is a valid move of the piece, running take_turn()
+
+      player_color = @current_player.color
+      next if ((self.accidental_checking? player_choices, player_color) or (!self.valid_move_pattern? piece, player_choices.last))
       commit_move(player_choices)
       switch_current_player
     end
   end
 
+  def print_messages
+    @messages.each {|msg| puts msg}
+    puts
+    @messages = []
+  end
+
   def switch_current_player
-    @current_player = @current_player == player1 ? player2 : player1
-    puts "#{@current_player} is no"
+    @current_player = @current_player == @player1 ? @player2 : @player1
+    puts "Now it is #{@current_player}'s turn"
+    puts
   end
 
   def take_turn
+    print_messages
+
     begin
       puts "#{@current_player.name}'s turn to move:"
       s_pos = @current_player.get_move(:pick_piece)
@@ -69,6 +86,17 @@ class Game
       puts
     end until @current_player.valid_end_position?(e_pos)
     [s_pos, e_pos]
+    # TODO: need to check that the move is within the piece's accepted movement pattern.
+  end
+
+  def valid_move_pattern? piece, e_pos
+    # FIXME: message is not being printed becaue game is clearing the message upon the next rendering of the board.
+    # takes in a piece and an array of start and end positions
+    unless piece.possible_moves.include? e_pos
+      @messages.push "That is not a valid move for your piece. Please try again."
+      return false
+    end
+    true
   end
 end
 
@@ -102,7 +130,7 @@ class HumanPlayer
   end
 
   def valid_start_position?(pos)
-    unless board.on_board?(pos) and board.piece_at(pos).color == color
+    unless board.on_board?(pos) and board.piece_at(pos) != nil and board.piece_at(pos).color == color
       puts 'You must pick a position on the board and your own piece.'
       return false
     end

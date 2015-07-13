@@ -40,6 +40,7 @@ class Board
   end
 
   def dup_board
+    # deep dups a board
     new_board = Board.new(false)
     pieces = get_pieces # pieces from this board
     pieces.each do |piece|
