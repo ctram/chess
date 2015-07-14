@@ -100,7 +100,6 @@ class Board
       enemy_possible_moves += piece.possible_moves
     end
     #
-
     enemy_possible_moves.include?(king_pos) ? true : false
   end
 
