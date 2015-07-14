@@ -25,7 +25,11 @@ class Board
   end
 
   def checkmate?(color)
+<<<<<<< HEAD
     # if incheck, need to check whether the king's color's pieces include possible moves that will lead to a board state that is not in check.
+=======
+    # if in-check, need to check whether the king's pieces include possible moves that will lead to a board state that is not in check.
+>>>>>>> dev
 
     friendly_pieces = find_pieces_of_color(color)
     # friendly_possible_moves = []
@@ -40,9 +44,17 @@ class Board
   end
 
   def dup_board
+<<<<<<< HEAD
     new_board = Board.new(false)
     pieces = get_pieces
     pieces.each do |piece|
+=======
+    # deep dups a board
+    new_board = Board.new(false)
+    pieces = get_pieces # pieces from this board
+    pieces.each do |piece|
+      # dups the piece and places it onto the new_board
+>>>>>>> dev
       piece.dup(new_board)
     end
     new_board
@@ -74,7 +86,10 @@ class Board
       piece.is_a?(King) && piece.color == color
     end
     if king == nil
+<<<<<<< HEAD
 
+=======
+>>>>>>> dev
       raise "No King found"
     else
       king
@@ -89,7 +104,11 @@ class Board
     @grid.flatten.compact
   end
 
+<<<<<<< HEAD
   def in_check?(color)
+=======
+  def in_check? color
+>>>>>>> dev
     king_pos = find_king(color).pos
     color = (color == :black ? :white : :black)
     enemy_pieces = find_pieces_of_color(color)
@@ -98,11 +117,18 @@ class Board
       enemy_possible_moves += piece.possible_moves
     end
     #
+<<<<<<< HEAD
 
     enemy_possible_moves.include?(king_pos) ? true : false
   end
 
   def make_starting_grid(fill_board)
+=======
+    enemy_possible_moves.include?(king_pos) ? true : false
+  end
+
+  def make_starting_grid fill_board
+>>>>>>> dev
     @grid = Array.new(8) { Array.new(8) }
     return unless fill_board
     [:black, :white].each do |color|
