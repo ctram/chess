@@ -76,7 +76,6 @@ class Board
       piece.is_a?(King) && piece.color == color
     end
     if king == nil
-
       raise "No King found"
     else
       king

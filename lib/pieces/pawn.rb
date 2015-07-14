@@ -38,7 +38,6 @@ class Pawn < Piece
     end
 
    # at the pawn's diagonal position, is there an enemy?
-
     2.times do |i|
       testing_position = positions[i-2]
       x = testing_position[0]

@@ -121,7 +121,6 @@ class HumanPlayer
 
   def valid_end_position?(pos)
     # TODO: a valid end position is one where there is an empty space?
-
     unless (board.piece_at(pos) == nil) or (board.on_board?(pos) and board.piece_at(pos).color != color)
       puts 'You must place your piece onto valid board coordinates and it must not be placed onto your own pieces.'
       return false
