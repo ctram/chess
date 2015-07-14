@@ -26,10 +26,14 @@ class Board
 
   def checkmate?(color)
 <<<<<<< HEAD
+<<<<<<< HEAD
     # if incheck, need to check whether the king's color's pieces include possible moves that will lead to a board state that is not in check.
 =======
     # if in-check, need to check whether the king's pieces include possible moves that will lead to a board state that is not in check.
 >>>>>>> dev
+=======
+    # if incheck, need to check whether the king's color's pieces include possible moves that will lead to a board state that is not in check.
+>>>>>>> 96e72fc84def40277c3e8d847f074b4aef06d596
 
     friendly_pieces = find_pieces_of_color(color)
     # friendly_possible_moves = []
@@ -45,6 +49,7 @@ class Board
 
   def dup_board
 <<<<<<< HEAD
+<<<<<<< HEAD
     new_board = Board.new(false)
     pieces = get_pieces
     pieces.each do |piece|
@@ -55,6 +60,11 @@ class Board
     pieces.each do |piece|
       # dups the piece and places it onto the new_board
 >>>>>>> dev
+=======
+    new_board = Board.new(false)
+    pieces = get_pieces
+    pieces.each do |piece|
+>>>>>>> 96e72fc84def40277c3e8d847f074b4aef06d596
       piece.dup(new_board)
     end
     new_board
@@ -87,9 +97,13 @@ class Board
     end
     if king == nil
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 =======
 >>>>>>> dev
+=======
+
+>>>>>>> 96e72fc84def40277c3e8d847f074b4aef06d596
       raise "No King found"
     else
       king
@@ -105,10 +119,14 @@ class Board
   end
 
 <<<<<<< HEAD
+<<<<<<< HEAD
   def in_check?(color)
 =======
   def in_check? color
 >>>>>>> dev
+=======
+  def in_check?(color)
+>>>>>>> 96e72fc84def40277c3e8d847f074b4aef06d596
     king_pos = find_king(color).pos
     color = (color == :black ? :white : :black)
     enemy_pieces = find_pieces_of_color(color)
@@ -118,17 +136,23 @@ class Board
     end
     #
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 96e72fc84def40277c3e8d847f074b4aef06d596
 
     enemy_possible_moves.include?(king_pos) ? true : false
   end
 
   def make_starting_grid(fill_board)
+<<<<<<< HEAD
 =======
     enemy_possible_moves.include?(king_pos) ? true : false
   end
 
   def make_starting_grid fill_board
 >>>>>>> dev
+=======
+>>>>>>> 96e72fc84def40277c3e8d847f074b4aef06d596
     @grid = Array.new(8) { Array.new(8) }
     return unless fill_board
     [:black, :white].each do |color|

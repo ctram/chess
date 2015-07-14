@@ -6,6 +6,9 @@ class Game
 
   def initialize(player1, player2)
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 96e72fc84def40277c3e8d847f074b4aef06d596
     @board = Board.new(true)
     player1.color = :white
     player2.color = :black
@@ -26,6 +29,7 @@ class Game
     if board.in_check?
       puts "You cannot put yourself into check."
       true
+<<<<<<< HEAD
 =======
     @messages = []
 
@@ -55,6 +59,8 @@ class Game
       puts "You cannot put yourself into check."
       return true
 >>>>>>> dev
+=======
+>>>>>>> 96e72fc84def40277c3e8d847f074b4aef06d596
     end
     false
   end
@@ -62,10 +68,14 @@ class Game
   def commit_move(player_choices)
     s_pos, e_pos = player_choices
 <<<<<<< HEAD
+<<<<<<< HEAD
     board.piece_at(s_pos).move(e_pos)
 =======
     @board.piece_at(s_pos).move(e_pos)
 >>>>>>> dev
+=======
+    board.piece_at(s_pos).move(e_pos)
+>>>>>>> 96e72fc84def40277c3e8d847f074b4aef06d596
   end
 
   def over?
@@ -74,11 +84,15 @@ class Game
 
   def play
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 96e72fc84def40277c3e8d847f074b4aef06d596
     puts 'Game begins. Player1 goes first.'
     until over?
       @board.render
       player_choices = self.take_turn
       next if self.accidental_checking?(player_choices)
+<<<<<<< HEAD
 =======
     puts 'Game begins. Player 1 goes first.'
     until over?
@@ -90,18 +104,24 @@ class Game
       player_color = @current_player.color
       next if ((self.accidental_checking? player_choices, player_color) or (!self.valid_move_pattern? piece, player_choices.last))
 >>>>>>> dev
+=======
+>>>>>>> 96e72fc84def40277c3e8d847f074b4aef06d596
       commit_move(player_choices)
       switch_current_player
     end
   end
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 96e72fc84def40277c3e8d847f074b4aef06d596
   def switch_current_player
     @current_player = @current_player == player1 ? player2 : player1
     puts "#{@current_player} is no"
   end
 
   def take_turn
+<<<<<<< HEAD
 =======
   def print_messages
     @messages.each {|msg| puts msg}
@@ -119,6 +139,8 @@ class Game
     print_messages
 
 >>>>>>> dev
+=======
+>>>>>>> 96e72fc84def40277c3e8d847f074b4aef06d596
     begin
       puts "#{@current_player.name}'s turn to move:"
       s_pos = @current_player.get_move(:pick_piece)
@@ -130,6 +152,7 @@ class Game
       puts
     end until @current_player.valid_end_position?(e_pos)
     [s_pos, e_pos]
+<<<<<<< HEAD
 <<<<<<< HEAD
 =======
     # TODO: need to check that the move is within the piece's accepted movement pattern.
@@ -144,6 +167,8 @@ class Game
     end
     true
 >>>>>>> dev
+=======
+>>>>>>> 96e72fc84def40277c3e8d847f074b4aef06d596
   end
 end
 
@@ -169,6 +194,9 @@ class HumanPlayer
   def valid_end_position?(pos)
     # TODO: a valid end position is one where there is an empty space?
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 96e72fc84def40277c3e8d847f074b4aef06d596
     debugger
     unless pos == nil or (board.on_board?(pos) and board.piece_at(pos).color != color)
       puts 'You must place your piece onto valid board coordinates and it must not be placed onto your own pieces.'
@@ -179,6 +207,7 @@ class HumanPlayer
     unless board.on_board?(pos) and board.piece_at(pos).color == color
       puts 'You must pick a position on the board and your own piece.'
       false
+<<<<<<< HEAD
 =======
     unless (board.piece_at(pos) == nil) or (board.on_board?(pos) and board.piece_at(pos).color != color)
       puts 'You must place your piece onto valid board coordinates and it must not be placed onto your own pieces.'
@@ -195,6 +224,8 @@ class HumanPlayer
       @messages.push 'You must pick a position on the board and your own piece.'
       return false
 >>>>>>> dev
+=======
+>>>>>>> 96e72fc84def40277c3e8d847f074b4aef06d596
     end
     true
   end

@@ -11,13 +11,19 @@ class Pawn < Piece
   end
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 96e72fc84def40277c3e8d847f074b4aef06d596
   def symbol(color)
     hash = { white: 'P', black: 'p' }
     hash[color]
   end
 
+<<<<<<< HEAD
 =======
 >>>>>>> dev
+=======
+>>>>>>> 96e72fc84def40277c3e8d847f074b4aef06d596
   def possible_moves
     positions = []
 
@@ -39,6 +45,9 @@ class Pawn < Piece
       adjusted_deltas.delete_at(1)
     end
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 96e72fc84def40277c3e8d847f074b4aef06d596
    # else , he can move up one, or up diagonally ONLY if there's an enemy to his diagonal.
    adjusted_deltas.each do |delta|
      new_pos = (delta[0] + pos[0]), (delta[1] + pos[1])
@@ -47,6 +56,7 @@ class Pawn < Piece
 
    # at the pawn's diagonal position, is there an enemy?
 
+<<<<<<< HEAD
 =======
 
     # else , he can move up one, or up diagonally ONLY if there's an enemy to his diagonal.
@@ -57,6 +67,8 @@ class Pawn < Piece
 
    # at the pawn's diagonal position, is there an enemy?
 >>>>>>> dev
+=======
+>>>>>>> 96e72fc84def40277c3e8d847f074b4aef06d596
     2.times do |i|
       testing_position = positions[i-2]
       x = testing_position[0]
@@ -69,6 +81,7 @@ class Pawn < Piece
     positions
   end
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 
   def symbol(color)
@@ -76,4 +89,6 @@ class Pawn < Piece
     hash[color]
   end
 >>>>>>> dev
+=======
+>>>>>>> 96e72fc84def40277c3e8d847f074b4aef06d596
 end
