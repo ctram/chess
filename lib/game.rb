@@ -131,7 +131,7 @@ class HumanPlayer
   def valid_start_position?(pos)
     # >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
     # FIXME: NEXT you want to use game.messages but that is in the game object, and this method is in the human object - need to pass in the the game to the player....?
-    debugger
+
     unless board.on_board?(pos) and board.piece_at(pos) != nil and board.piece_at(pos).color == color
       @messages.push 'You must pick a position on the board and your own piece.'
       return false
